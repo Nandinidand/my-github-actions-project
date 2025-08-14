@@ -1,0 +1,48 @@
+name: job-step-conditions
+on:
+  push:
+    branches: main 
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step1: Print "Build started"
+        run: echo "Build started"
+
+      - name: Step 2: Simulate failure
+        run: exit 1
+
+      - name: Step 3: Only if previous succeeded
+        if: success()
+        run: echo "Previous step succeeded — running Step 3"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    if: success()
+    steps:
+      - name: Run tests
+        run: echo "Running tests..."
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    steps:
+      - name: Deploy if build succeeded
+        if: success('build')
+        run: echo "Deploying because build succeeded"
+
+      - name: Deploy if build failed
+        if: failure('build')
+        run: echo "Deploying alternate process because build failed"
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: success()
+    steps:
+      - name: Notify team
+        run: echo "Notifying team about successful deployment"
+
