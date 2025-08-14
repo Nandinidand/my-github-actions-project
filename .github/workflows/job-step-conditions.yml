@@ -21,7 +21,7 @@ jobs:
     if: success()
     steps:
     - name: run tests
-      run: echo"running tests"
+      run: echo "running tests"
     
   deploy:
     runs-on: ubuntu-latest
@@ -30,10 +30,10 @@ jobs:
     steps:
     - name: deploy if build success
       if: success()
-      run: echo"deployed as build succedded"
+      run: echo "deployed as build succedded"
     - name: deploy if build failed
       if: failure()
-      run: echo"deployed as build failed"
+      run: echo "deployed as build failed"
 
   notify:
     runs-on: ubuntu-latest
@@ -41,5 +41,5 @@ jobs:
     if: success()
     steps:
     - name: run if deploy is successfull
-      run: echo"Notifying team about successfull deployement"
+      run: echo "Notifying team about successfull deployement"
 
