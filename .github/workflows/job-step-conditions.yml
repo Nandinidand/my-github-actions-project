@@ -7,13 +7,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Step1: Print "Build started"
+      - name: Print "Build started"
         run: echo "Build started"
-
-      - name: Step 2: Simulate failure
+        
+      - name: Simulate failure
         run: exit 1
 
-      - name: Step 3: Only if previous succeeded
+      - name: Step 3:Only if previous succeeded
         if: success()
         run: echo "Previous step succeeded — running Step 3"
 
