@@ -29,10 +29,10 @@ jobs:
     if: always()
     steps:
     - name: deploy if build success
-      if: success("build")
+      if: success('build')
       run: echo"deployed as build succedded"
     - name: deploy if build failed
-      if: failure("build")
+      if: failure('build')
       run: echo"deployed as build failed"
 
   notify:
